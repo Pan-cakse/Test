@@ -1,3 +1,3 @@
-# Leavesmc Web API
+# NanaicaMC Web API
 
-Similar to https://api.papermc.io, for https://leavesmc.top.
+Similar to https://api.papermc.io, for https://nanaicamc.tk.
