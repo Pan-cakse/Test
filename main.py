@@ -23,7 +23,7 @@ from sql_tables import *
 from config import MysqlConfig, WebConfig, CDNConfig
 
 
-CDN_URL = "https://cdn.leavesmc.z0z0r4.top"
+CDN_URL = "https://cdn.nanaicamc.pancakse.tk"
 SECRET = open("config/secret", "r").read()
 
 
@@ -33,11 +33,11 @@ def sql_replace(sess: Session, table, **kwargs):
     sess.execute(on_duplicate_key_stmt)
 
 
-app = FastAPI(description="LeavesMC website API", version="0.1.0", title="LeavesMC")
+app = FastAPI(description="NanaicaMC website API", version="0.1.0", title="LeavesMC")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex="https://.*\.leavesmc\.top",
+    allow_origin_regex="https://.*\.nanaicamc\.tk",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -53,7 +53,7 @@ app.mount("/cache", StaticFiles(directory="cache"), name="cache")
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
-    return RedirectResponse("https://docs.leavesmc.top/img/logo.svg")
+    return RedirectResponse("https://docs.nanaicamc.tk/img/logo.svg")
 
 
 @app.get("/docs", include_in_schema=False)
@@ -101,7 +101,7 @@ async def _startup():
 @app.get("/", description="Root")
 @api_json_middleware
 async def root():
-    return "LeavesMC API"
+    return "NanaicaMC WebAPI"
 
 
 @app.get(
@@ -109,7 +109,7 @@ async def root():
     description="projects list",
     responses={
         200: {
-            "content": {"application/json": {"example": {"projects": ["leaves"]}}},
+            "content": {"application/json": {"example": {"projects": ["nanaica"]}}},
         }
     },
 )
@@ -128,8 +128,8 @@ async def projects():
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "Leaves",
+                        "project_id": "nanaica",
+                        "project_name": "Nanaica",
                         "version_groups": ["1.19", "1.20"],
                         "versions": [
                             "1.19",
@@ -147,7 +147,7 @@ async def projects():
     },
 )
 @api_json_middleware
-async def project_info(project: str = "leaves"):
+async def project_info(project: str = "nanaica"):
     with Session(bind=app.state.sql_engine) as sess:
         result = (
             sess.query(Project.project_name, Project.version, Project.version_group)
@@ -181,8 +181,8 @@ async def project_info(project: str = "leaves"):
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "leaves",
+                        "project_id": "nanaica",
+                        "project_name": "nanaica",
                         "version": "1.20.1",
                         "builds": [4, 5],
                     }
@@ -217,8 +217,8 @@ async def project_version_info(project: str = "leaves", version: str = "1.20.1")
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "leaves",
+                        "project_id": "nanaica",
+                        "project_name": "nanaica",
                         "version": "1.20.1",
                         "builds": [
                             {
@@ -235,9 +235,9 @@ async def project_version_info(project: str = "leaves", version: str = "1.20.1")
                                 ],
                                 "downloads": {
                                     "application": {
-                                        "name": "leaves-1.20.1.jar",
+                                        "name": "nanaica-1.20.1.jar",
                                         "sha256": "3bc74a7d33063921ea22424ae9246c026009bfc98f33ee374d38b3dd89d63636",
-                                        "url": "https://github.com/LeavesMC/Leaves/releases/download/1.20.1-494cb91/leaves-1.20.1.jar",
+                                        "url": "https://github.com/Nanaica/NanaicaMC/releases/download/1.20.1-494cb91/nanaica-1.20.1.jar",
                                     }
                                 },
                             }
@@ -249,7 +249,7 @@ async def project_version_info(project: str = "leaves", version: str = "1.20.1")
     },
 )
 @api_json_middleware
-async def project_version_builds_info(project: str = "leaves", version: str = "1.20.1"):
+async def project_version_builds_info(project: str = "nanaica", version: str = "1.20.1"):
     with Session(bind=app.state.sql_engine) as sess:
         build_result = (
             sess.query(Project)
@@ -325,8 +325,8 @@ async def project_version_builds_info(project: str = "leaves", version: str = "1
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "leaves",
+                        "project_id": "nanaica",
+                        "project_name": "nanaica",
                         "version": "1.20.1",
                         "build": 42,
                         "time": "2023-07-24T08:08:42.000Z",
@@ -351,10 +351,10 @@ async def project_version_builds_info(project: str = "leaves", version: str = "1
                         ],
                         "downloads": {
                             "application": {
-                                "name": "leaves-1.20.1.jar",
+                                "name": "nanaica-1.20.1.jar",
                                 "sha256": "c8472025c5cd4cd916af071714b69f0478642b9c829f9d877b607bd3b7c5d5b5",
                                 "url": "https://github.com/LeavesMC/Leaves/releases/download/1.20.1-feb7fb4/leaves-1.20.1.jar",
-                                "cdn_url": "https://cdn.leavesmc.z0z0r4.top/cache/leaves-1.20.1.jar",
+                                "cdn_url": "https://cdn.leavesmc.z0z0r4.top/cache/nanaica-1.20.1.jar",
                             }
                         },
                     }
@@ -437,8 +437,8 @@ async def latest_build_info(project: str = "leaves", version: str = "1.20.1"):
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "leaves",
+                        "project_id": "nanaica",
+                        "project_name": "nanaica",
                         "version": "1.20.1",
                         "build": 42,
                         "time": "2023-07-24T08:08:42.000Z",
@@ -463,10 +463,10 @@ async def latest_build_info(project: str = "leaves", version: str = "1.20.1"):
                         ],
                         "downloads": {
                             "application": {
-                                "name": "leaves-1.20.1.jar",
+                                "name": "nanaica-1.20.1.jar",
                                 "sha256": "c8472025c5cd4cd916af071714b69f0478642b9c829f9d877b607bd3b7c5d5b5",
-                                "url": "https://github.com/LeavesMC/Leaves/releases/download/1.20.1-feb7fb4/leaves-1.20.1.jar",
-                                "cdn_url": "https://cdn.leavesmc.z0z0r4.top/cache/leaves-1.20.1.jar",
+                                "url": "https://github.com/Nanaica/NanaicaMC/releases/download/1.20.1-feb7fb4/nanaica-1.20.1.jar",
+                                "cdn_url": "https://cdn.leavesmc.z0z0r4.top/cache/nanaica-1.20.1.jar",
                             }
                         },
                     }
@@ -549,8 +549,8 @@ async def project_version_build_info(
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "Leaves",
+                        "project_id": "nanaica",
+                        "project_name": "Nanaica",
                         "version_group": "1.20",
                         "versions": ["1.20", "1.20.1"],
                     }
@@ -590,8 +590,8 @@ async def version_group_info(project: str = "leaves", version_group: str = "1.20
             "content": {
                 "application/json": {
                     "example": {
-                        "project_id": "leaves",
-                        "project_name": "leaves",
+                        "project_id": "nanaica",
+                        "project_name": "nanaica",
                         "version_group": "1.20",
                         "builds": [
                             {
@@ -602,9 +602,9 @@ async def version_group_info(project: str = "leaves", version_group: str = "1.20
                                 "changes": [],
                                 "downloads": {
                                     "application": {
-                                        "name": "leaves-1.20.jar",
+                                        "name": "nanaica-1.20.jar",
                                         "sha256": "75201e1ebfaeb58715c08c2475db2ad24c3e75d2ec325de43f98b40ec5f819aa",
-                                        "url": "https://github.com/LeavesMC/Leaves/releases/download/1.20-1fbd584/leaves-1.20.jar",
+                                        "url": "https://github.com/Nanaica/NanaicaMC/releases/download/1.20-1fbd584/nanaica-1.20.jar",
                                     }
                                 },
                             }
@@ -617,7 +617,7 @@ async def version_group_info(project: str = "leaves", version_group: str = "1.20
 )
 @api_json_middleware
 async def version_group_builds_info(
-    project: str = "leaves", version_group: str = "1.20"
+    project: str = "nanaica", version_group: str = "1.20"
 ):
     with Session(bind=app.state.sql_engine) as sess:
         build_result = (
@@ -738,8 +738,8 @@ async def download_file_by_name(
 
 
 class ReleaseData(BaseModel):
-    project_id: str = "leaves"
-    project_name: str = "leaves"
+    project_id: str = "nanaica"
+    project_name: str = "nanaica"
     version: str
     time: str
     channel: str = "default"
