@@ -1,10 +1,10 @@
 [Unit]
-Description=leavesmc_api
-Documentation=https://api.leavesmc.top
+Description=nanaicamc_api
+Documentation=https://api.nanaicamc.tk
 
 [Service]
-WorkingDirectory=/opt/leavesmc/webapi
-ExecStart=sh /opt/leavesmc/webapi/start.sh
+WorkingDirectory=/opt/nanaicamc/webapi
+ExecStart=sh /opt/nanaicamc/webapi/start.sh
 Restart=on-abnormal
 RestartSec=5s
 KillMode=mixed
